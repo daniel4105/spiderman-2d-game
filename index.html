@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spider-Man: Web Slinger</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Oswald:wght@400;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #e62429;
+      --blue: #003087;
+      --gold: #ffd700;
+      --dark: #0a0a1a;
+      --panel: rgba(0,0,0,0.75);
+    }
+
+    body {
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Oswald', sans-serif;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    /* ── Title ── */
+    #title-screen {
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 50% 60%, #1a003a 0%, #000 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 100;
+      gap: 18px;
+    }
+    #title-screen h1 {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--red);
+      text-shadow: 4px 4px 0 var(--blue), 8px 8px 0 #000;
+      letter-spacing: 4px;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    #title-screen p {
+      color: #ccc;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    #start-btn {
+      margin-top: 20px;
+      padding: 14px 48px;
+      font-family: 'Bangers', cursive;
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      background: var(--red);
+      color: #fff;
+      border: 4px solid var(--blue);
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 0 24px rgba(230,36,41,0.6);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+    #start-btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 40px rgba(230,36,41,0.9);
+    }
+
+    /* ── HUD ── */
+    #hud {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 20px;
+      background: var(--panel);
+      border-bottom: 3px solid var(--red);
+      z-index: 50;
+      pointer-events: none;
+    }
+    .hud-block { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .hud-label { font-size: 0.65rem; letter-spacing: 2px; color: #aaa; text-transform: uppercase; }
+    .hud-value { font-family: 'Bangers', cursive; font-size: 1.6rem; color: var(--gold); letter-spacing: 2px; }
+    #hearts { display: flex; gap: 5px; align-items: center; }
+    .heart { font-size: 1.4rem; filter: drop-shadow(0 0 4px #e00); }
+    .heart.empty { filter: grayscale(1) opacity(0.4); }
+
+    /* ── Canvas wrapper ── */
+    #game-wrap {
+      position: relative;
+      margin-top: 52px;
+    }
+    #gameCanvas {
+      display: block;
+      border: 3px solid var(--blue);
+      box-shadow: 0 0 40px rgba(0,48,135,0.5), 0 0 80px rgba(230,36,41,0.2);
+      image-rendering: pixelated;
+    }
+
+    /* ── Game Over / Win ── */
+    #overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.82);
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 80; gap: 16px;
+    }
+    #overlay.show { display: flex; }
+    #overlay h2 {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      color: var(--red);
+      text-shadow: 3px 3px 0 #000;
+      letter-spacing: 4px;
+    }
+    #overlay p { color: #ddd; font-size: 1.1rem; letter-spacing: 1px; }
+    #overlay .score-final { font-family:'Bangers',cursive; font-size:2rem; color: var(--gold); }
+    #restart-btn {
+      padding: 12px 42px;
+      font-family: 'Bangers', cursive;
+      font-size: 1.6rem;
+      letter-spacing: 3px;
+      background: var(--blue);
+      color: #fff;
+      border: 4px solid var(--red);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    #restart-btn:hover { transform: scale(1.07); }
+
+    /* ── Controls hint ── */
+    #controls-hint {
+      position: fixed; bottom: 10px;
+      font-size: 0.75rem; color: #555;
+      letter-spacing: 1px;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    @keyframes pulse {
+      0%,100% { text-shadow: 4px 4px 0 var(--blue), 8px 8px 0 #000; }
+      50% { text-shadow: 4px 4px 0 var(--blue), 8px 8px 0 #000, 0 0 40px var(--red); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Title Screen -->
+  <div id="title-screen">
+    <h1>SPIDER-MAN</h1>
+    <p>Web Slinger · City Rooftops</p>
+    <button id="start-btn">¡JUGAR!</button>
+    <p style="font-size:.85rem;color:#555;margin-top:10px">
+      ← → Moverse &nbsp;|&nbsp; ESPACIO Saltar &nbsp;|&nbsp; CLICK Telaraña
+    </p>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud">
+    <div class="hud-block">
+      <span class="hud-label">Vida</span>
+      <div id="hearts"></div>
+    </div>
+    <div class="hud-block">
+      <span class="hud-label">Puntaje</span>
+      <div class="hud-value" id="score-display">0</div>
+    </div>
+    <div class="hud-block">
+      <span class="hud-label">Mejor</span>
+      <div class="hud-value" id="best-display">0</div>
+    </div>
+    <div class="hud-block">
+      <span class="hud-label">Nivel</span>
+      <div class="hud-value" id="level-display">1</div>
+    </div>
+  </div>
+
+  <!-- Canvas -->
+  <div id="game-wrap">
+    <canvas id="gameCanvas"></canvas>
+  </div>
+
+  <!-- Game Over Overlay -->
+  <div id="overlay">
+    <h2 id="overlay-title">GAME OVER</h2>
+    <p id="overlay-msg">Los criminales ganaron esta vez...</p>
+    <div class="score-final" id="overlay-score"></div>
+    <button id="restart-btn">REINTENTAR</button>
+  </div>
+
+  <div id="controls-hint">← → MOVERSE &nbsp;·&nbsp; ESPACIO SALTAR &nbsp;·&nbsp; CLICK IZQUIERDO TELARAÑA</div>
+
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
