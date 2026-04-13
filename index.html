@@ -5,17 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Spider-Man: Miles Morales 2D</title>
   <meta name="description" content="Juego 2D de Spider-Man Miles Morales — Lanza telarañas y derrota criminales en las azoteas de Brooklyn." />
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
 
   <!-- Bootstrap 5 -->
-  <link
-    rel="stylesheet"
+  <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
-  />
+    crossorigin="anonymous" />
 
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
@@ -30,18 +26,14 @@
 ═══════════════════════════════════════════════════════════ -->
 <nav class="navbar navbar-expand-lg spidy-nav">
   <div class="container-fluid">
-    <span class="navbar-brand">
-  <span class="red">SPIDER</span>-MAN
-</span>
+    <span class="navbar-brand"><span class="red">SPIDER</span>-MAN</span>
     <button class="navbar-toggler" type="button"
       data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto ms-3">
-        
-      </ul>
+      <ul class="navbar-nav me-auto ms-3"></ul>
       <div class="score-badge">
         <i class="bi bi-trophy-fill" style="color:var(--red)"></i>
         Récord: <span id="nav-best">0</span>
@@ -82,12 +74,23 @@
         <div class="menu-subtitle">MILES MORALES</div>
         <hr class="menu-divider" />
         <div class="row g-2 mb-2">
-          <div class="col-6"><div class="stat-card"><div class="stat-label">Puntaje</div><div class="stat-value" id="menu-score">0</div></div></div>
-          <div class="col-6"><div class="stat-card"><div class="stat-label">Récord</div><div class="stat-value" id="menu-best">0</div></div></div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-label">Puntaje</div>
+              <div class="stat-value" id="menu-score">0</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-label">Récord</div>
+              <div class="stat-value" id="menu-best">0</div>
+            </div>
+          </div>
         </div>
         <div class="d-flex flex-column gap-2">
-          <button class="btn-spidy" id="btn-play"><i class="bi bi-play-circle-fill me-1"></i> JUGAR</button>
-          
+          <button class="btn-spidy" id="btn-play">
+            <i class="bi bi-play-circle-fill me-1"></i> JUGAR
+          </button>
         </div>
         <p class="menu-hint">
           <i class="bi bi-mouse2"></i> Click → Telaraña &nbsp;|&nbsp;
@@ -111,10 +114,10 @@
             <tr><td class="lv">3</td><td>30</td><td>4</td><td>Rápida</td></tr>
             <tr><td class="lv">4</td><td>50</td><td>5</td><td>Veloz</td></tr>
             <tr><td class="lv">5</td><td>75</td><td>6</td><td>Máx</td></tr>
-            <tr class="fin"><td colspan="4" style="color:var(--red);font-family:var(--font-h);letter-spacing:1px">¡VICTORIA!</td></tr>
+            <tr><td colspan="4" style="color:var(--red);font-family:var(--font-h);letter-spacing:1px;padding:.18rem .22rem;text-align:center">¡VICTORIA!</td></tr>
           </tbody>
         </table>
-        <div style="font-size:.68rem;color:var(--gray);margin-top:.4rem;line-height:1.5">
+        <div style="font-size:.65rem;color:var(--gray);margin-top:.35rem;line-height:1.5">
           Máx <span class="neon-badge">5 enemigos</span> por edificio.<br>
           Grupos pequeños, nunca el total de golpe.
         </div>
@@ -124,75 +127,94 @@
   </div>
 </section>
 
-
-
 <!-- ═══════════════════════════════════════════════════════════
      GAME SECTION
 ═══════════════════════════════════════════════════════════ -->
 <section id="game-section">
-  <div class="container-fluid">
-    <div id="game-wrapper">
+  <div id="game-wrapper">
 
-      <!-- HUD -->
-      <div id="game-hud">
-        <!-- Lives -->
-        <div class="hud-block">
-          <span class="hud-label">VIDA</span>
-          <div class="hud-lives">
-            <div class="heart" id="h1"></div>
-            <div class="heart" id="h2"></div>
-            <div class="heart" id="h3"></div>
-            <div class="heart" id="h4"></div>
-            <div class="heart" id="h5"></div>
-          </div>
-        </div>
-        <!-- Score -->
-        <div class="hud-block">
-          <span class="hud-label">PUNTOS</span>
-          <span class="hud-val" id="hud-score">0</span>
-        </div>
-        <!-- Level -->
-        <div class="hud-block">
-          <span class="hud-label">NIV.</span>
-          <span class="hud-val" id="hud-level">1</span>
-        </div>
-        <!-- Enemies to next level -->
-        <div class="hud-block">
-          <span class="hud-label">PARA SUBIR</span>
-          <span class="hud-val" id="hud-enemies">5</span>
-        </div>
-        <!-- Best -->
-        <div class="hud-block">
-          <span class="hud-label">RÉCORD</span>
-          <span class="hud-val" id="hud-best">0</span>
+    <!-- HUD -->
+    <div id="game-hud">
+      <div class="hud-block">
+        <span class="hud-label">VIDA</span>
+        <div class="hud-lives">
+          <div class="heart" id="h1"></div>
+          <div class="heart" id="h2"></div>
+          <div class="heart" id="h3"></div>
+          <div class="heart" id="h4"></div>
+          <div class="heart" id="h5"></div>
         </div>
       </div>
-
-      <!-- Key strip -->
-      <div id="key-strip">
-        <div class="ks-item"><span class="ks-key">←/A, →/D</span> Moverse</div>
-        <div class="ks-item"><span class="ks-key">Espacio</span> Saltar</div>
-        <div class="ks-item"><span class="ks-key">Click / Tap</span> Telaraña</div>
-        <div class="ks-item"><span class="ks-key">Esc</span> Pausa</div>
+      <div class="hud-block">
+        <span class="hud-label">PUNTOS</span>
+        <span class="hud-val" id="hud-score">0</span>
       </div>
-
-      <!-- CANVAS -->
-      <canvas id="game-canvas" width="900" height="506"></canvas>
-
-      <!-- OVERLAY (pause / gameover / victory) -->
-      <div id="overlay">
-        <div class="overlay-card" id="overlay-card">
-          <!-- filled dynamically by JS -->
-        </div>
+      <div class="hud-block">
+        <span class="hud-label">NIV.</span>
+        <span class="hud-val" id="hud-level">1</span>
       </div>
-
-      <!-- LEVEL UP FLASH -->
-      <div id="level-flash">
-        <div class="flash-txt">NIVEL 2</div>
+      <div class="hud-block">
+        <span class="hud-label">PARA SUBIR</span>
+        <span class="hud-val" id="hud-enemies">5</span>
       </div>
+      <div class="hud-block">
+        <span class="hud-label">RÉCORD</span>
+        <span class="hud-val" id="hud-best">0</span>
+      </div>
+    </div>
 
-    </div><!-- /game-wrapper -->
-  </div>
+    <!-- Key strip (sólo desktop) -->
+    <div id="key-strip">
+      <div class="ks-item"><span class="ks-key">←/A, →/D</span> Moverse</div>
+      <div class="ks-item"><span class="ks-key">Espacio</span> Saltar</div>
+      <div class="ks-item"><span class="ks-key">Click / Tap</span> Telaraña</div>
+      <div class="ks-item"><span class="ks-key">Esc</span> Pausa</div>
+    </div>
+
+    <!-- CANVAS -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- ══════════════════════════════════════════
+         CONTROLES TÁCTILES (superpuestos al canvas)
+         Visibles en móvil automáticamente
+    ══════════════════════════════════════════ -->
+    <div id="touch-controls">
+
+      <!-- D-Pad izquierda -->
+      <button class="tc-btn" id="tc-left" aria-label="Izquierda">
+        ◀
+        <span class="tc-label">IZQ</span>
+      </button>
+
+      <button class="tc-btn" id="tc-right" aria-label="Derecha">
+        ▶
+        <span class="tc-label">DER</span>
+      </button>
+
+      <button class="tc-btn" id="tc-jump" aria-label="Saltar">
+        ▲
+        <span class="tc-label">SALTAR</span>
+      </button>
+
+      <!-- Pausa esquina superior derecha -->
+      <button class="tc-btn" id="tc-pause" aria-label="Pausa">
+        ⏸
+        <span class="tc-label">PAUSA</span>
+      </button>
+
+    </div>
+
+    <!-- OVERLAY (pausa / gameover / victoria) -->
+    <div id="overlay">
+      <div class="overlay-card" id="overlay-card"></div>
+    </div>
+
+    <!-- LEVEL UP FLASH -->
+    <div id="level-flash">
+      <div class="flash-txt">NIVEL 2</div>
+    </div>
+
+  </div><!-- /game-wrapper -->
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -217,18 +239,12 @@
 <!-- Game Engine -->
 <script src="./assets/js/main.js"></script>
 
-<!-- Nav play link wires to game section -->
+<!-- Récord inicial en navbar -->
 <script>
-  document.getElementById("nav-play-link").addEventListener("click", function(e){
-    e.preventDefault();
-    const btn = document.getElementById("btn-play");
-    if(btn) btn.click();
-  });
-  /* keep nav best in sync */
-  (function syncNavBest(){
+  (function () {
     const best = localStorage.getItem("spidy_best") || "0";
     const el = document.getElementById("nav-best");
-    if(el) el.textContent = best;
+    if (el) el.textContent = best;
   })();
 </script>
 
