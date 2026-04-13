@@ -66,9 +66,6 @@
   mkAudio("menu", "assets/audio/menumusic.mp3", true, 0.40);
   mkAudio("game", "assets/audio/gamemusic.mp3", true, 0.35);
   mkAudio("shoot", "assets/audio/shoot.mp3", false, 0.40);
-  mkAudio("hit", "assets/audio/hit.mp3", false, 0.50);
-  mkAudio("die", "assets/audio/die.mp3", false, 0.55);
-  mkAudio("levelup", "assets/audio/levelup.mp3", false, 0.60);
 
   function play(id) { const a = SFX[id]; if (!a) return; a.currentTime = 0; a.play().catch(() => { }); }
   function stop(id) { const a = SFX[id]; if (!a) return; a.pause(); a.currentTime = 0; }
