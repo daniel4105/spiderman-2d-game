@@ -470,4 +470,33 @@ footer {
   #tc-right { bottom: 14px; left: 72px; }
   #tc-jump  { bottom: 76px; left: 41px; width: 48px; height: 48px; }
   #tc-pause { top: 38px; right: 10px; width: 40px; height: 40px; font-size: .9rem; }
+
+  @media (max-width: 768px) {
+
+  /* Mostrar controles táctiles siempre en móvil */
+  #touch-controls {
+    display: block !important;
+  }
+
+  /* Ocultar barra de teclas (solo escritorio) */
+  #key-strip {
+    display: none;
+  }
+
+  /* Ajustar HUD para que no se vea apretado */
+  #game-hud {
+    height: auto;
+    padding: 4px 6px;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .hud-label {
+    font-size: 0.6rem;
+  }
+
+  .hud-val {
+    font-size: 0.8rem;
+  }
+}
 }

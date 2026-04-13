@@ -261,7 +261,6 @@
 
     /* Mostrar controles táctiles si es dispositivo touch */
     const tc = document.getElementById("touch-controls");
-    if (tc && isTouchDevice()) tc.classList.add("touch-visible");
 
     syncSize();
     initState();
