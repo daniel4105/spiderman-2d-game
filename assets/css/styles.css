@@ -63,20 +63,22 @@ html,body{min-height:100%;background:var(--black);color:var(--white);font-family
   color:var(--neon);text-shadow:0 0 8px var(--neon);display:flex;align-items:center;gap:.4rem;
 }
 
-/* ─── LAYOUT GENERAL: todo visible sin scroll ─── */
 html, body {
   height: 100%;
-  overflow: hidden;   /* sin scroll global */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ─── MENU SECTION: ocupa el espacio entre nav y footer ─── */
 #menu-section {
-  height: calc(100vh - var(--nav-h) - var(--foot-h));
+  flex: 1;
+  min-height: 0;
   display: flex;
   align-items: stretch;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  overflow-y: auto;
   background: radial-gradient(ellipse at 50% 55%,#200040 0%,#0d001a 45%,var(--black) 100%);
 }
 #menu-section::before {
@@ -354,4 +356,11 @@ footer {
   .menu-center { width: 100%; }
   #game-section { height: auto; min-height: calc(100vh - var(--nav-h) - var(--foot-h)); }
   #game-canvas { aspect-ratio: 16/9; flex: none; height: auto; }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* sin scroll */
 }
